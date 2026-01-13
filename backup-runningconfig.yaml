@@ -1,0 +1,11 @@
+- name: Backup Devices
+  hosts: cisco_iol
+  gather_facts: no
+
+  tasks:
+    - name: Backup running config
+      cisco.ios.ios_config:
+        backup: yes
+        backup_options:
+        
+          filename: "{{ inventory_hostname }}.txt"

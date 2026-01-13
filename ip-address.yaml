@@ -1,0 +1,88 @@
+---
+- name: Baseline IP addressing (beginner)
+  hosts: all
+  gather_facts: no
+
+  tasks:
+
+    - name: Configure R1 interface
+      ios_config:
+        parents: interface e0/1
+        lines:
+          - ip address 10.0.12.1 255.255.255.0
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R1"
+
+    - name: Configure R1 loopback interface
+      ios_config:
+        parents: interface loopback0
+        lines:
+          - ip address 1.1.1.1 255.255.255.255
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R1"
+
+    - name: Configure R2 interface 0/1
+      ios_config:
+        parents: interface e0/1
+        lines:
+          - ip address 10.0.12.2 255.255.255.0
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R2"
+
+    - name: Configure R2 interface 0/2
+      ios_config:
+        parents: interface e0/2
+        lines:
+          - ip address 10.0.23.2 255.255.255.0
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R2"
+
+    - name: Configure R2 interface 0/3
+      ios_config:
+        parents: interface e0/3
+        lines:
+          - ip address 10.0.24.2 255.255.255.0
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R2"
+
+    - name: Configure R2 Loopback interface
+      ios_config:
+        parents: interface loopback0
+        lines:
+          - ip address 2.2.2.2 255.255.255.255
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R2"
+
+    - name: Configure R3 Loopback interface
+      ios_config:
+        parents: interface loopback0
+        lines:
+          - ip address 3.3.3.3 255.255.255.255
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R3"
+
+    - name: Configure R3 e0/1
+      ios_config:
+        parents: interface e0/1
+        lines:
+          - ip address 10.0.23.3 255.255.255.0
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R3"
+
+
+    - name: Configure R4 Loopback interface
+      ios_config:
+        parents: interface loopback0
+        lines:
+          - ip address 4.4.4.4 255.255.255.255
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R4"
+
+    - name: Configure R4 interface e0/1
+      ios_config:
+        parents: interface e0/1
+        lines:
+          - ip address 10.0.24.4 255.255.255.0
+          - no shutdown
+      when: inventory_hostname == "clab-bgp-policy-lab-R4"
+
